@@ -1,6 +1,6 @@
 # Hype²
 
-##News
+## News
 - Now compatible with Windows Install, just take care to launch the driver before scanning disks.
 - Screenshot and VM live edition (RAM and vCPU until Max declared) added 
 - Disk creation and resize
@@ -15,8 +15,8 @@ Server[Server] <----> LXC((LXC))
 
 
 
-## Install requirements (Debian example
-For your safty you can also find the packages on pip or pipx 
+## Install requirements (Debian 12 example)
+For your safety you can also find the packages on pip or pipx and the requirement.txt file.
 
 1 - Update and Install packages :
 
@@ -86,7 +86,7 @@ For security reason, you should remove **db.db.admin_example**
 
 If you want to create this database by yourself, you can :
 
-### Create Database for users
+### Create Database for users (Manual creation)
 
 ```sh
 sqlite3 db.db
@@ -224,6 +224,25 @@ systemctl start hype.service
 ## Configuration
 
 You can also change some configuration in the file *configuration.py* such as flask port, storage location...use it at your own risk.
+
+
+## Windows requirement (Virtuio)
+If you plan to install some Windows Virtual Machine, you will need to download the Virtuo (Windows drivers IO) and place the ISO in the *<hype_path>/storage/win* folder.
+
+https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/archive-virtio/virtio-win-0.1.229-1/
+
+
+You will also need to configure the ISO name in the *configuration.py* file.
+
+```sh
+virtuo_path= path+'/storage/win/'
+virtuo_file='virtio-win-0.1.229.iso'
+
+```
+
+NB: Depending on the Windows version you need, you will need to use a specific Virtio version. 
+    Lastest version will remove the old Windows version driver.
+
 
 ## Others
 
