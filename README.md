@@ -23,7 +23,7 @@ For your safety you can also find the packages on pip or pipx and the requiremen
 ```sh
 apt-get update -y -qq
 apt-get install git lxc lxcfs lxc-templates qemu qemu-utils qemu-kvm virtinst bridge-utils virt-manager libvirt-daemon libvirt-daemon-system virt-viewer libvirt-clients libosinfo-bin websockify sqlite3 novnc
-apt-get install python3 python3-flask python3-flask-login python3-flask-sqlalchemy python3-requests python3-lxc python3-libvirt python3-psutil python3-werkzeug python3-websockify python3-novnc python3-flask-socketio python3-types-pyopenssl
+apt-get install python3 python3-flask python3-flask-login python3-flask-sqlalchemy python3-requests python3-lxc python3-libvirt python3-psutil python3-werkzeug python3-websockify python3-novnc python3-flask-socketio python3-openssl
 
 apt-get install openvswitch-switch openvswitch-common
 
@@ -70,7 +70,17 @@ address XXX.XXX.XXX.XXX
 netmask YYY.YYY.YYY.YYY
 gateway ZZZ.ZZZ.ZZZ.ZZZ
 ```
+4 - Modify Qemu configuration
 
+You will have to uncomment these lines :
+
+```sh
+vnc_listen = "0.0.0.0"
+user=root
+group=root
+```
+
+This will ajust rights for Qemu to run as root and enable VNC on all address for the console.
 
 ## Database for users
 
@@ -198,6 +208,8 @@ python3 app.py
 and go to https://www.example.com (or https://<server_ip>:5007 without RP) with your credentials (mail and normal password or admin)
 
 ```
+
+NB: The first LXC creation will take time to download files. Be patient 
 
 ## Systemd
 
