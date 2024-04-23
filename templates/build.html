@@ -1,0 +1,75 @@
+{% extends 'layout.html' %}
+{% block content %}
+{% include 'menu.html' %}
+<div class="container">
+	<div class="row">
+		<div class="col-12">
+			<div class="card">
+				<div class="card-header">
+					<i class="fa fa-cube"></i> - Build Container
+				</div>
+				<div class="card-body">
+
+<form action="/creation" method="post">
+		<label for="cnom">Name</label>
+		<input type="text" id="cnom" name="nom" class="form-control" placeholder="Container" required><br>
+		<label for="cip">Optional static IP</label>
+		<input type="text" id="cip" name="ip" class="form-control" placeholder="192.168.XX.XX/YY"><br>
+		<label for="oslist">OS</label>
+		<select id="oslist" name="os" class="form-control">
+		{%for dist in list_lxc_os %}
+			<option value={{ dist[1] }}>{{ dist[0] }}</option>
+		{%endfor%}
+		</select><br>
+		<button name="creation" class="btn btn-outline-secondary  btn-hype" type="submit" onclick="loading();">Create</button>
+	</form>
+
+				</div>
+			</div>
+		</div>
+	</div>
+<br>
+	<div class="card">
+  		<div class="card-header">
+    			<i class="fa-solid fa-desktop"></i> - Create Virtual Server
+  		</div>
+  		<div class="card-body">
+			<form action="/creationvm" method="post">
+				<label for="nom">Name</label>
+					<input type="text" name="vm_name" class="form-control" placeholder="Server" required><br>
+				<label for="ram">Memory (in MiB)</label>
+					<input type="text" name="ram" class="form-control" placeholder="1024" required><br>
+				<label for="cpu">vCPU</label>
+					<input type="text" name="cpu" class="form-control" placeholder="1" required><br>
+				<label for="disk">Disk (in GB)</label>
+					<input type="text" class="form-control" name="disk" placeholder="10" required><br>
+				<label for="os">OS</label>
+					<select id="profilelist" class="form-control" name="os" placeholder="Profile" required>
+					{%for profile in list_profiles %}
+						<option value={{ profile }}>{{ profile }}</option>
+					{%endfor%}
+					</select><br>
+				<label for="iso">ISO</label>
+					<select id="isolist" class="form-control" name="iso" required>
+					{%for iso in list_iso %}
+        					<option value={{ iso[0] }}>{{ iso[0] }}</option>
+					{%endfor%}
+					</select><br>
+				<label for="net">Network</label>
+					<select id="netlist" class="form-control"  name="net" required>
+					{%for net in list_net %}
+                        			<option value={{ net }}>{{ net }}</option>
+					{%endfor%}
+					</select><br>
+				<button name="creation" class="btn btn-outline-secondary  btn-hype" type="submit" onclick="loading();">Create</button>
+			</form>
+		</div>
+	</div>
+</div>
+<script>
+var myDropzone = new Dropzone("#file-dropzone", {
+    maxFilesize: 10240, // 10Go in Mo
+    timeout: 0,
+});
+</script>
+{% endblock %}

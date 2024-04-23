@@ -1,0 +1,139 @@
+{% extends 'layout.html' %}
+{% block content %}
+{% include 'menu.html' %}
+<div class="container">
+       <div class="card">
+                <div class="card-header">
+		Ressources of {{ vm_name }}
+                </div>
+        	<div class="card-body">
+			<div class="row">
+    				<div class="col-sm">
+				<img src="data:image/png;base64,{{ screen_64 }}" class="img-thumbnail">
+    				</div>
+    				<div class="col-sm">
+      					<i class="fa-solid fa-microchip"></i> vCPU : {{ actual_vCPU }}</br></br>
+					<i class="fa-solid fa-memory"></i> Memory: {{ actual_ram }} MB</br></br>
+{% if actual_autostart == 1 %}
+					Autostart : <input type="checkbox" class="form-check-input" checked disabled/>
+{% else %}
+                                        Autostart : <input type="checkbox" class="form-check-input" disabled/>
+{% endif %}
+    				</div>
+
+    				<div class="col-sm">
+				<form action="/editressources" method="post">
+                                        <input type="hidden" name="vm_name" value="{{ vm_name }}"></input>
+      					<table><tr><td>CPU :</td><td><input type="text" name="new_cpu" class="form-control form-control-sm" placeholder="{{ actual_vCPU }}" value="{{ actual_vCPU }}" ></input></td><td><small> (Max : {{ max_vCPU }} )</small></td></tr></table><br>
+      					<table><tr><td>Memory :</td><td><input type="text" name="new_mem" class="form-control form-control-sm" placeholder="{{ actual_ram }}" value="{{ actual_ram }}" ></input></td><td> MB <small> (Max : {{ max_Mermory }} MB)</small></td></tr></table><br>
+{% if actual_autostart == 1 %}
+                                        <input type="checkbox" name="new_autostart" class="form-check-input" value="auto_check" checked/> Autostart
+{% else %}
+                                        <input type="checkbox" name="new_autostart" class="form-check-input" value="auto_check"/> Autostart
+{% endif %}
+					<br><br>
+					<br><small><i class="fa-solid fa-triangle-exclamation"></i> Changing vCPU and/or Memory will restart {{ vm_name }} <i class="fa-solid fa-triangle-exclamation"></i></small>
+					<br><br>
+					<button type="submit" class="btn btn-outline-warning btn-hype"  onclick="loading();"><i class="fa-solid fa-pencil"></i></button>
+					</form>	
+				</div>
+			</div>
+			
+        	</div>
+	</div>
+<br>
+        <div class="card">
+                <div class="card-header">
+                Disk(s) of {{ vm_name }}
+                </div>
+                <div class="card-body">
+                Actual disks<hr>
+                        <div class="row">
+                                <div class="col-sm">
+{% for disk in disks %}
+                                        <i class="fa-solid fa-hard-drive"></i>
+                                        <b>{{ disk[4]  }}</b> ({{ disk[5] }} G) <br>
+                                        <small>System disk:<br>name: {{ disk[6] }} - Size : {{ disk[1]  }} G (Used : {{ disk[2] }} G)</br></small><br>
+<div class="progress">
+  <div id="diskbar" class="progress-bar bg-info progress-bar-striped" role="progressbar" style="width: {{ disk[3] }}%;" aria-valuenow={{ disk[3]  }} aria-valuemin="0" aria-valuemax="100">{{ disk[3]  }} %</div>
+</div><br>
+
+{% endfor %}
+                                </div>
+                                <div class="col-sm">
+					<small>Be aware that detached disks, still exist ! You should clean unused disks on Pool tab.</small><br>
+					<small><i class="fa-solid fa-triangle-exclamation"></i> Shrinking a disk size, can corrupt or delete your data <i class="fa-solid fa-triangle-exclamation"></i></small><br><br>
+					<table style="width:100%;">
+{% for disk in disks %}
+                                        <tr><td>{{ disk[4] }}  </td><td>
+					<form action="/editdisks" method="post">
+					<input type="hidden" name="vm_name" value="{{vm_name }}" />
+					<input type="hidden" name="disk_id" value="{{ disk[6] }}">
+					<input type="hidden" name="actual_size" value="{{ disk[5] }}" />
+					<input type="hidden" name="diskfile" value="{{ disk[0] }}" />
+					<input type="text" name="new_size" class="form-control form-control-sm" placeholder="{{ disk[5] }}" value="{{ new_size }}" />
+					</td><td> G   </td><td>
+					<button type="submit" class="btn btn-outline-info btn-hype"><i class="fa-solid fa-up-right-and-down-left-from-center"></i></button>
+					</form>
+                                        </td><td>
+                                        <form action="/detachdisk" method="post">
+                                        <input type="hidden" name="vm_name" value="{{vm_name }}" />
+                                        <input type="hidden" name="diskfile" value="{{ disk[0] }}" /> 
+                                        <button type="submit" class="btn btn-outline-danger btn-hype"  onclick="loading();"><i class="fa-solid fa-link-slash"></i></button>
+                                        </form>
+                                        </td>
+
+					</tr><tr></tr><tr></tr><tr></tr><tr>
+{% endfor%}
+					</table>
+                        	</div>
+                	</div>
+		<br>
+		Add and attach a new disk<hr>
+                        <div class="row">
+                                <div class="col-sm">
+					<form action="/adddisk" method="post">
+					<input type="hidden" name="vm_name" value="{{ vm_name }}">
+					New disk name </br></br></br>Size </br></br>Disk target (system name)<br>
+				</div>
+				<div class="col-sm">
+					<input type="text" name="disk_name" class="form-control form-control-sm" required><br>
+					<table><tr><td><input type="text" name="disk_size" class="form-control form-control-smplaceholder="10"" required></td><td> G</td></tr></table><br>
+					<input type="text" name="disk_id" class="form-control form-control-sm" placeholder="vda" required><br>
+                                </div>
+                                <div class="col-sm">
+                                </div>
+				<button type="submit" class="btn btn-outline-info btn-hype"  onclick="loading();"><i class="fa-solid fa-plus"></i> Add</button>
+				</form>
+                        </div>
+
+        	</div>
+	</div>
+<br>
+       <div class="card">
+                <div class="card-header">
+                Networking for {{ vm_name }}
+                </div>
+                <div class="card-body">
+		Attach new network<hr>
+                        <div class="row">
+                                <div class="col-sm">
+				<form action="/addnetvm" method="post">
+				<input type="hidden" name="vm_name" value="{{ vm_name }}">
+                                <label for="new_net_vm">Network</label>
+                                <select id="new_net_vm" class="form-control" name="new_net_vm" placeholder="Profile" required>
+                                {%for net in list_net %}
+                                     <option value={{ net }}>{{ net }}</option>
+                                {%endfor%}
+                                </select><br>
+				<button type="submit" class="btn btn-outline-info btn-hype" onclick="loading();"><i class="fa-solid fa-plus"></i> Add</button>
+                                </form>
+                                </div>
+                        </div>
+
+		</div>
+	</div>
+</div>
+
+
+{% endblock %}

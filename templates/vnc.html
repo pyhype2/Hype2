@@ -1,0 +1,8 @@
+{% extends 'layout.html' %}
+{% block content %}
+{% include 'menu.html' %}
+<center><a href="/vnc" target="_blank" class="btn btn-outline-info"> Full screen  <i class="fa-solid fa-expand"></i></a></br>
+<br>
+<iframe src="/vnc" height=768px width=1024px class="embed-responsive-item" allowfullscreen></iframe></center>
+
+{% endblock %}

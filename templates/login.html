@@ -1,0 +1,26 @@
+{% extends 'layout.html' %}
+{% block content %}
+<div class="container mt-5">
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-6">
+            <div class="card px-5 py-5" id="form1">
+            <h1 class="h1">Hype²</h1>
+            <form action="/login" method="POST" class="form-group">
+            <br><br>
+            <div class="form-group">
+                <input type="email" name="email" placeholder="Email" class="form-control">
+            </div><br>
+            <div class="form-group">
+                <input type="password" name="password" placeholder="Password" class="form-control">
+            </div><br>
+            <div class="form-group">
+                <button type="submit" class="btn btn-outline-info btn-hype">Login</button>
+            </div>
+            </form>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-12"></div>
+    </div>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,123 @@
+{% extends 'layout.html' %}
+{% block content %}
+{% include 'menu.html' %}
+<div class="container fs-6"">
+<table class="table">
+<!-- Active LXC -->
+{% for act_lxc in activ_lxc %}
+<tr><td>
+<i class="fa fa-cube fa-lg"></i><i class="fa fa-check text-success"></i>
+</td><td>
+<p class="fw-light">{{act_lxc[0]}}</p>
+</td><td>
+	<form action="/start_lxc" method="post"><button type="submit" class="btn btn-outline-success btn-hype disabled" value="{{ act_lxc[0] }}" name="start" onclick="loading();"><i class="fa fa-play" aria-hidden="true"></i></button></form>
+</td><td>
+        <form action="/stop_lxc" method="post"><button type="submit" class="btn btn-outline-secondary btn-hype" value="{{ act_lxc[0] }}" name="stop" onclick="loading();"><i class="fa fa-stop" aria-hidden="true"></i></button></form>
+</td><td>
+	<form action="/console_lxc" method="post" target=”_blank”><button type="submit" class="btn btn-outline-info btn-hype" value="{{ act_lxc[0] }}" name="lxc_name" onclick="loading();"><i class="fa fa-terminal"></i></button></form>
+</td><td>
+        <form action="/destroy_lxc" method="post"><button type="submit" class="btn btn-outline-danger btn-hype disabled" value="{{ act_lxc[0] }}" name="destroy" onclick="loading();"><i class="fa fa-trash" aria-hidden="true"></i></button></form>
+</td><td>
+        <form action="/snaplxc" method="post"><button type="submit" class="btn btn-outline-secondary btn-hype disabled" value="{{ act_lxc[0] }}" name="snap" onclick="loading();"><i class="fa-solid fa-box-archive"></i></button></form>
+</td><td>
+        <form action="/editlxc" method="post"><button type="submit" class="btn btn-outline-warning btn-hype" value="{{ act_lxc[0] }}" name="edit"  onclick="loading();"><i class="fa-solid fa-wrench"></i></button></form>
+
+</td><td>
+</td><td>
+        {{act_lxc[1]}}
+</td></tr>
+{% endfor %}
+<!-- Inactive LXC -->
+{% for inact_lxc in inactiv_lxc %}
+<tr><td>
+<i class="fa fa-cube fa-lg"></i><i class="fa fa-times text-danger"></i>
+</td><td>
+<p class="fw-light">{{inact_lxc}}</p>
+</td><td>
+        <form action="/start_lxc" method="post"><button type="submit" class="btn btn-outline-success btn-hype" value="{{ inact_lxc }}" name="start" onclick="loading();"><i class="fa fa-play" aria-hidden="true"></i></button></form>
+</td><td>
+        <form action="/stop_lxc" method="post"><button type="submit" class="btn btn-outline-secondary btn-hype disabled" value="{{ inact_lxc }}" name="stop" onclick="loading();"><i class="fa fa-stop" aria-hidden="true"></i></button></form>
+</td><td>
+        <form action="/console_lxc" method="post"><button type="submit" class="btn btn-outline-info btn-hype disabled" value="{{ inact_lxc }}" name="lxc_name" onclick="loading();"><i class="fa fa-terminal" aria-hidden="true"></i></button></form>
+</td><td>
+        <form action="/destroy_lxc" method="post"><button type="submit" class="btn btn-outline-danger btn-hype" value="{{ inact_lxc }}" name="destroy" onclick="loading();"><i class="fa fa-trash" aria-hidden="true"></i></button></form>
+</td><td>
+        <form action="/snaplxc" method="post"><button type="submit" class="btn btn-outline-secondary btn-hype" value="{{ inact_lxc }}" name="snap" onclick="loading();"><i class="fa-solid fa-box-archive"></i></button></form>
+</td><td>
+        <form action="/editlxc" method="post"><button type="submit" class="btn btn-outline-warning btn-hype" value="{{ inact_lxc }}" name="edit"  onclick="loading();"><i class="fa-solid fa-wrench"></i></button></form>
+</td><td>
+</td><td>        -
+</td></tr>
+{% endfor %}
+<!-- Activ VM -->
+{% for act_vm in activ_vm %}
+<tr><td>
+<i class="fa fa-desktop fa-lg"></i><i class="fa fa-check text-success"></i>
+</td><td>
+<p class="fw-light">{{act_vm[0]}}</p>
+</td><td>
+        <form action="/start_vm" method="post"><button type="submit" class="btn btn-outline-success btn-hype disabled" value="{{ act_vm[0] }}" name="start" onclick="loading();"><i class="fa fa-play" aria-hidden="true"></i></button></form>
+</td><td>
+        <form action="/stop_vm" method="post"><button type="submit" class="btn btn-outline-secondary btn-hype" value="{{ act_vm[0] }}" name="stop" onclick="loading();"><i class="fa fa-stop" aria-hidden="true"></i></button></form>
+</td><td>
+        <form action="/console_vm" method="post"><button type="submit" class="btn btn-outline-info btn-hype" value="{{ act_vm[0] }}" name="vm_name" onclick="loading();"><i class="fa fa-terminal" aria-hidden="true"></i></button></form>
+</td><td>
+        <form action="/destroy_vm" method="post"><button type="submit" class="btn btn-outline-danger btn-hype disabled" value="{{ act_vm[0] }}" name="destroy" onclick="loading();"><i class="fa fa-trash" aria-hidden="true"></i></button></form>
+</td><td>
+        <form action="/snapvm" method="post"><button type="submit" class="btn btn-outline-secondary btn-hype disabled" value="{{ act_vm[0] }}" name="snap" onclick="loading();"><i class="fa-solid fa-box-archive"></i></button></form>
+</td><td>
+        <form action="/editvm" method="post"><button type="submit" class="btn btn-outline-warning btn-hype" value="{{ act_vm[0] }}" name="edit"  onclick="loading();"><i class="fa-solid fa-wrench"></i></button></form>
+
+</td><td>
+
+{% if act_vm[1] == 1 %}
+<table class="table table-borderless"><tr><th>
+<i class="fa-solid fa-compact-disc"></i>
+</th><th><form action="/mountiso" method="post"><input type="hidden" id="postId" name="iso" value="" />
+<button type="submit" class="btn btn-outline-secondary btn-hype" value="{{act_vm[0]}}" name="vm" onclick="loading();">
+<i class="fa-solid fa-eject"></i></button></form>
+</th></tr></table>
+
+{% else %}
+<i class="fa-solid fa-compact-disc" style="color:grey"></i>
+{% endif %}
+</td><td>
+        {{act_vm[2]}}
+</td></tr>
+{% endfor %}
+<!-- Inavtiv VM -->
+{% for inact_vm in inactiv_vm %}
+<tr><td>
+<i class="fa fa-desktop fa-lg"></i><i class="fa fa-times text-danger"></i>
+</td><td>
+<p class="fw-light">{{inact_vm[0]}}</p>
+</td><td>
+        <form action="/start_vm" method="post"><button type="submit" class="btn btn-outline-success btn-hype" value="{{ inact_vm[0] }}" name="start"><i class="fa fa-play" aria-hidden="true" onclick="loading();"></i></button></form>
+</td><td>
+        <form action="/stop_vm" method="post"><button type="submit" class="btn btn-outline-secondary btn-hype disabled" value="{{ inact_vm[0] }}" name="stop" onclick="loading();"><i class="fa fa-stop" aria-hidden="true"></i></button></form>
+</td><td>
+        <form action="/console_vm" method="post"><button type="submit" class="btn btn-outline-info btn-hype disabled"><i class="fa fa-terminal" aria-hidden="true" onclick="loading();"></i></button></form>
+</td><td>
+        <form action="/destroy_vm" method="post"><button type="submit" class="btn btn-outline-danger btn-hype" value="{{ inact_vm[0] }}" name="destroy" onclick="loading();"><i class="fa fa-trash" aria-hidden="true"></i></button></form>
+</td><td>
+        <form action="/snapvm" method="post"><button type="submit" class="btn btn-outline-secondary btn-hype" value="{{ inact_vm[0] }}" name="snap" onclick="loading();"><i class="fa-solid fa-box-archive"></i></button></form>
+</td><td>
+         <form action="/editvm" method="post"><button type="submit" class="btn btn-outline-warning btn-hype" value="{{ inact_vm[0] }}" name="edit"  onclick="loading();"><i class="fa-solid fa-wrench"></i></button></form>
+<!--         <form action="/editvm" method="post"><button type="submit" class="btn btn-outline-warning btn-hype disabled" value="{{ inact_vm[0] }}" name="edit"  onclick="loading();"><i class="fa-solid fa-wrench"></i></button></form> -->
+</td><td>
+{% if inact_vm[1] == 1 %}
+<table class="table table-borderless"><tr><th>
+<i class="fa-solid fa-compact-disc"></i>
+</th><th><form action="/mountiso" method="post"><input type="hidden" id="postId" name="iso" value="" />
+<button type="submit" class="btn btn-outline-secondary btn-hype" value="{{inact_vm[0]}}" name="vm" onclick="loading();">
+<i class="fa-solid fa-eject"></i></button></form>
+</th></tr></table>
+{% else %}
+<i class="fa-solid fa-compact-disc" style="color:grey"></i>
+{% endif %}
+</td><td>
+        -
+</td></tr>
+{% endfor %}
+</table>
+{% endblock %}

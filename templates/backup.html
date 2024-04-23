@@ -1,0 +1,38 @@
+{% extends 'layout.html' %}
+{% block content %}
+{% include 'menu.html' %}
+<div class="container">
+<table class="table">
+{% for lxc in list_snap_lxc %}
+<tr><td>
+<p class="fw-light">{{ lxc[0] }}</p>
+</td><td>
+{% for snap_lxc in lxc[1] %}
+	<table class="table"><tr><th>
+	{{ snap_lxc }}</th><th>
+	<form action="/rest_snap_lxc" method="post"><input type="hidden" name="lxc_name" value="{{ lxc[0] }}"><button type="submit" class="btn btn-outline-secondary btn-hype" name="item" value="{{ snap_lxc }}" onclick="loading();"><i class="fa-solid fa-rotate-left"></i></button></form>
+	</th><th>
+	<form action="/del_snap_lxc" method="post"><input type="hidden" name="lxc_name" value="{{ lxc[0] }}"><button type="submit" class="btn btn-outline-danger btn-hype" name="item" value="{{ snap_lxc }}" onclick="loading();"><i class="fas fa-trash"></i</button></form>
+	</th></tr></table>
+{% endfor %}
+</td></tr>
+{% endfor %}
+{% for vm in list_snap_vm %}
+<tr><td>
+<p class="fw-light">{{ vm[0] }}</p>
+</td><td>
+{% for snap_vm in vm[1] %}
+	<table class="table"><tr><th>
+        {{ snap_vm }}</th><th>
+       	<button type="submit" class="btn btn-outline-secondary btn-hype" value="{{ snap }}" name="start" onclick="loading();"><i class="fa-solid fa-rotate-left"></i></button>
+        </th><th>
+        <form action="/del_snap_vm" method="post"><input type="hidden" name="vm_name" value="{{ vm[0] }}">
+	<button type="submit" class="btn btn-outline-danger btn-hype" value="{{ snap_vm }}" name="item"  onclick="loading();"><i class="fa-solid fa-trash"></i></button>
+	</form>
+        </th></tr></table>
+{% endfor %}
+</td></tr>
+{% endfor %}
+</table>
+</div>
+{% endblock %}

@@ -1,0 +1,95 @@
+{% extends 'layout.html' %}
+{% block content %}
+{% include 'menu.html' %}
+<center>
+<a href="/createnet" class="btn btn-outline-danger"><i class="fa-solid fa-plus"></i> Add Network</a></br></br></br>
+<div class="container">
+        <div class="row">
+                <div class="col-12">
+                        <div class="card">
+                                <div class="card-header">
+                                        Physical interface
+                                </div>
+                                <div class="card-body">
+                        {% for pint in net_hard_int %}
+                                <i class="fa-solid fa-ethernet"></i> {{ pint }}<br>
+                        {% endfor %}
+                                </div>
+                        </div>
+                </div>
+        </div>
+</div>
+
+<center>
+<br>
+<div class="container">
+        <div class="row">
+                <div class="col-12">
+                        <div class="card">
+                                <div class="card-header">
+                                        Virtual interface
+                                </div>
+                                <div class="card-body">
+
+{% for noac in net_na %}
+<div class="container">
+        <div class="row">
+                <div class="col-12">
+                        <div class="card">
+                                <div class="card-header">
+					<i class="fa-solid fa-ethernet"></i> {{ noac }} Not active
+                                </div>
+                                <div class="card-body">
+</div></div></div></div></div>
+<br><br>
+{% endfor %}
+{% for item in net_tree %}
+<div class="container">
+        <div class="row">
+                <div class="col-12">
+                        <div class="card">
+                                <div class="card-header">
+	                            	<table class="table table-sm table-borderless"><tr><td>
+                            				<i class="fa-solid fa-network-wired"></i> {{ item[0][0][0] }}  - <i class="fa-solid fa-ethernet"></i> {{ item[0][0][1] }} - {{ item[0][0][2] }}
+                                		</td><td>
+                                			<form action="/delnet" method="post">
+                                        			<input type="hidden" id="net_del" name="net_del" class="form-control" value="{{ item[0][0][0] }}">
+                                        			<button name="delete" class="btn btn-outline-danger btn-sm" type="submit" onclick="loading();"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                			</form>
+                                		</td></tr>
+					</table>
+                                </div>
+                                <div class="card-body">
+				{% for sub_item in item[1] %}
+					<div class="container">
+				        	<div class="row">
+                					<div class="col-12">
+                        					<div class="card">
+                                					<div class="card-header">
+                                        					<i class="fa-solid fa-desktop"></i> {{ sub_item[0] }}<br>
+                                					</div>
+                                					<div class="card-body">
+								{% for pitem in  sub_item[1] %}
+										<table class="table table-sm table-responsive table-borderless">
+										<tr><td>
+                                  						<i class="fa-solid fa-ethernet"></i> {{ pitem[0] }} - <i class="fa-solid fa-at"></i> {{ pitem[1] }} - {{ pitem[2] }}<br>
+										</td><td>
+					                                			<form action="/delnetvm" method="post">
+				                	                        			<input type="hidden" id="vm_name" name="vm_name" class="form-control" value="{{ sub_item[0] }}">
+				        	                                			<input type="hidden" id="del_net_vm" name="del_net_vm" class="form-control" value="{{ item[0][0][0] }}">
+				                	                        			<input type="hidden" id="del_mac_vm" name="del_mac_vm" class="form-control" value="{{ pitem[1] }}">
+				                        	                			<input type="hidden" id="del_net_int" name="del_net_int" class="form-control" value="{{ item[0][0][1] }}">
+			        	                        	        			<button name="delete" class="btn btn-outline-danger btn-sm" type="submit" onclick="loading();"><i class="fa fa-trash" aria-hidden="true"></i></button>
+								                                </form>
+							                                </td></tr>
+										</table>
+									{% endfor %}
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+</div></div></div></div></div>
+{% endfor %}
+{% endblock %}

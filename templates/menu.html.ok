@@ -1,0 +1,55 @@
+ <div class="side-navbar active-nav d-flex justify-content-between flex-wrap flex-column" id="sidebar">
+    <ul class="nav flex-column text-dark w-100 ">
+	<li class="nav-link">
+	  <h1 class="display-6">Hype²</h1>
+	</li>
+	<hr class="text-body">
+      <li class="nav-link">
+	<a class="nav-link text-body text-decoration-none fw-light" href="/"><i class="fa fa-pie-chart"></i> Dashboard</a>
+      </li>
+      <li class="nav-link">
+	<a class="nav-link text-body text-decoration-none fw-light" href="/state"><i class="fa fa-cubes"></i> State</a>
+      </li>
+      <li class="nav-link">
+	<a class="nav-link text-body text-decoration-none fw-light" href="/build"><i class="fa fa-cogs"></i> Build</a>
+      </li>
+      <li class="nav-link">
+        <a class="nav-link text-body text-decoration-none fw-light" href="/backup"><i class="fa fa-archive"></i> Backup</a>
+      </li>
+      <li class="nav-link">
+        <a class="nav-link text-body text-decoration-none fw-light" href="/iso"><i class="fa-solid fa-compact-disc"></i> ISO</a>
+      </li>
+      <li class="nav-link">
+        <a class="nav-link text-body text-decoration-none fw-light" href="/pool"><i class="fa-solid fa-hard-drive"></i> Pools</a>
+      </li>
+      <li class="nav-link">
+        <a class="nav-link text-body text-decoration-none fw-light" href="/network"><i class="fa-solid fa-network-wired"></i> Network</a>
+      </li>
+
+    </ul>
+  </div>
+  <div class="p-1 my-container active-cont">
+    <nav class="navbar top-navbar px-5">
+      <a class="btn border-0 text-body" id="menu-btn"><i class="fa fa-bars"></i></a>
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fa fa-user"></i> {{ current_user.username }}
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+            <li><a class="dropdown-item" href="/logout"><i class="fa fa-sign-out"></i> Logout</a></li>
+            <li><a class="dropdown-item" href="/signup"><i class="fa fa-user-plus"></i> Add user</a></li>
+	    <li><a class="dropdown-item" href="/param"><i class="fa fa-gear"></i> Parameters</a></li>
+            <li><a class="dropdown-item" style="cursor:pointer" id="btnSwitch"><i class="fa-solid fa-circle-half-stroke"></i> Theme</a></li>
+          </ul>
+    </nav>
+</br>
+<!-- Safe pour que ce soit au format html, sinon, prit comme texte -->
+<div class="container">
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+      <div id="alert" class="alert alert-{{ category }}">{{ message }}</div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+</div>
+</br>

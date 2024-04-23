@@ -1,0 +1,30 @@
+{% extends 'layout.html' %}
+{% block content %}
+{% include 'menu.html' %}
+<div class="container fs-6"">
+	<div class="card">
+		<div class="card-header">
+			<i class="fa fa-cube"></i> List of users
+		</div>
+		<div class="card-body">
+{% for user in users_list %}
+			<div class="row">
+				<div class="col-4">
+					<p class="fw-light">{{user[0]}}</p>
+				</div>
+				<div class="col-4">
+					<p class="fw-light">{{user[1]}}</p>
+				</div>
+				<div class="col-1">
+					<form action="/deluser" method="post"><input type="hidden" id="postId" name="username" value="{{user[0]}}" />
+					<button type="submit" class="btn btn-outline-danger btn-hype" value="{{user[1]}}" name="email">
+						<i class="fa-solid fa-trash"></i>
+					</button>
+					</form>
+				</div>
+			</div>
+{% endfor %}
+		</div>
+	</div>
+</div>
+{% endblock %}

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html data-bs-theme="dark">
+
+<head>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hype 2</title>
+
+    <link href="{{url_for('static', filename = 'bootstrap.min.css' )}}" rel="stylesheet">
+    <link href="{{url_for('static', filename = 'Chart.min.css' )}}" rel="stylesheet" >
+    <link href="{{url_for('static', filename = 'font-awesome/css/fontawesome.css')}}" rel="stylesheet">
+    <link href="{{url_for('static', filename = 'font-awesome/css/brands.css')}}" rel="stylesheet">
+    <link href="{{url_for('static', filename = 'font-awesome/css/solid.css')}}" rel="stylesheet">
+    <link href="{{url_for('static', filename = 'style.css')}}" rel="stylesheet">
+    <link href="{{url_for('static', filename = 'dropzone.min.css')}}" rel="stylesheet">
+
+    <script src="{{url_for('static', filename = 'popper.min.js')}}"></script>
+    <script src="{{url_for('static', filename = 'bootstrap.bundle.min.js')}}"></script>
+    <script src="{{url_for('static', filename = 'jquery.min.js')}}"></script>
+    <script src="{{url_for('static', filename = 'Chart.min.js')}}"></script>
+    <script src="{{url_for('static', filename = 'dropzone.min.js')}}"></script>
+
+    <script src="{{url_for('static', filename = '/core/rfb.js')}}"></script>
+    <script src="{{url_for('static', filename = '/core/util/strings.js')}}"></script>
+    <script src="{{url_for('static', filename = '/core/util/element.js')}}"></script>
+    <script src="{{url_for('static', filename = '/core/util/logging.js')}}"></script>
+    <script src="{{url_for('static', filename = '/core/util/browser.js')}}"></script>
+    <script src="{{url_for('static', filename = '/core/util/int.js')}}"></script>
+    <script src="{{url_for('static', filename = '/core/util/events.js')}}"></script>
+    <script src="{{url_for('static', filename = '/core/util/eventtarget.js')}}"></script>
+    <script src="{{url_for('static', filename = '/core/display.js')}}"></script>
+    <script src="{{url_for('static', filename = '/core/inflator.js')}}"></script>
+    <script src="{{url_for('static', filename = '/core/deflator.js')}}"></script>
+    <script src="{{url_for('static', filename = '/core/input/gesturehandler.js')}}"></script>
+    <script src="{{url_for('static', filename = '/core/input/keyboard.js')}}"></script>
+    <script src="{{url_for('static', filename = '/core/util/cursor.js')}}"></script>
+    <script src="{{url_for('static', filename = '/core/websock.js')}}"></script>
+    <script src="{{url_for('static', filename = '/core/des.js')}}"></script>
+    <script src="{{url_for('static', filename = '/core/input/keysym.js')}}"></script>
+    <script src="{{url_for('static', filename = '/core/input/xtscancodes.js')}}"></script>
+    <script src="{{url_for('static', filename = '/core/encodings.js')}}"></script>
+    <script src="{{url_for('static', filename = '/core/decoders/raw.js')}}"></script>
+    <script src="{{url_for('static', filename = '/core/decoders/copyrect.js')}}"></script>
+    <script src="{{url_for('static', filename = '/core/decoders/hextile.js')}}"></script>
+    <script src="{{url_for('static', filename = '/core/decoders/rre.js')}}"></script>
+    <script src="{{url_for('static', filename = '/core/decoders/tight.js')}}"></script>
+    <script src="{{url_for('static', filename = '/core/decoders/tightpng.js')}}"></script>
+    <script src="{{url_for('static', filename = '/core/base64.js')}}"></script>
+    <script src="{{url_for('static', filename = '/vendor/pako/lib/zlib/inflate.js')}}"></script>
+    <script src="{{url_for('static', filename = '/vendor/pako/lib/zlib/zstream.js')}}"></script>
+    <script src="{{url_for('static', filename = '/vendor/pako/lib/zlib/deflate.js')}}"></script>
+    <script src="{{url_for('static', filename = '/core/input/util.js')}}"></script>
+    <script src="{{url_for('static', filename = '/vendor/pako/lib/utils/common.js')}}"></script>
+    <script src="{{url_for('static', filename = '/vendor/pako/lib/zlib/inffast.js')}}"></script>
+    <script src="{{url_for('static', filename = '/vendor/pako/lib/zlib/adler32.js')}}"></script>
+    <script src="{{url_for('static', filename = '/vendor/pako/lib/zlib/crc32.js')}}"></script>
+    <script src="{{url_for('static', filename = '/vendor/pako/lib/zlib/inftrees.js')}}"></script>
+    <script src="{{url_for('static', filename = '/core/input/keysymdef.js')}}"></script>
+    <script src="{{url_for('static', filename = '/core/input/vkeys.js')}}"></script>
+    <script src="{{url_for('static', filename = '/core/input/fixedkeys.js')}}"></script>
+    <script src="{{url_for('static', filename = '/core/input/domkeytable.js')}}"></script>
+    <script src="{{url_for('static', filename = '/vendor/pako/lib/zlib/trees.js')}}"></script>
+    <script src="{{url_for('static', filename = '/vendor/pako/lib/zlib/messages.js')}}"></script>
+
+
+</head>
+<body>
+<!-- Loading DIV -->
+<div id="loading"><center><img src="{{url_for('static', filename = 'logo.gif')}}"></center></div>
+
+    {% block content %}{% endblock %}
+
+<!-- Alerting -->
+<script>
+    var opacity=0;
+    var intervalID=0;
+        function fadeout(){
+               setInterval(hide, 100);
+        }
+
+    setTimeout(function(){
+	fadeout();
+    }, 3000);
+    function hide(){
+          var body=document.getElementById("alert");
+          opacity = Number(window.getComputedStyle(body).getPropertyValue("opacity"))
+  
+            if(opacity>0){
+                   opacity=opacity-0.1;
+                   body.style.opacity=opacity
+            }
+            else{
+                clearInterval(intervalID); 
+            }
+        }
+</script>
+<!-- Menu JS-->
+<script>
+var menu_btn = document.querySelector("#menu-btn");
+var sidebar = document.querySelector("#sidebar");
+var container = document.querySelector(".my-container");
+
+sidebar.classList.remove("active-nav");
+container.classList.remove("active-cont");
+
+menu_btn.addEventListener("click", () => {
+  sidebar.classList.toggle("active-nav");
+  container.classList.toggle("active-cont");
+});
+</script>
+<!-- Loading -->
+<script type="text/javascript">// <![CDATA[
+        function loading(){
+            $("#loading").show();
+            $("#content").hide();       
+        }
+// ]]>
+</script>
+<!-- DropZone
+<script>
+var myDropzone = new Dropzone("#file-dropzone", {
+    maxFilesize: 10240, // 10Go in Mo
+    timeout: 0,
+});
+</script>
+-->
+<!-- Alert JS -->
+<script>
+//Get the cookie related to theme
+var cookieValue = document.cookie
+  .split("; ")
+  .find((row) => row.startsWith("theme="))
+  ?.split("=")[1];
+// Appli the theme related to the cookie
+window.onload = function() {
+      if (cookieValue == 'dark'){
+         document.documentElement.setAttribute('data-bs-theme','dark')
+      }
+      else {
+         document.documentElement.setAttribute('data-bs-theme','light')
+      }
+}
+//Change the cookie and reload
+document.getElementById('btnSwitch').addEventListener('click',()=>{
+    if (cookieValue == 'dark') {
+        document.cookie = "theme=light";
+        window.location.reload();
+    }
+    else {
+        document.cookie = "theme=dark";
+        window.location.reload();
+    }
+})
+
+</script>
+</body>
+</html>

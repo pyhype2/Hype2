@@ -1,0 +1,240 @@
+{% extends 'layout.html' %}
+{% block content %}
+{% include 'menu.html' %}
+<div class="container">
+<div class="row">
+<div class="col-4">
+<div class="card">
+                <div class="card-header">
+                Hostname
+                </div>
+                <div class="card-body">
+		<h1 class="display-6">{{ host.hostname }}</h1>
+                Last boot : {{ host.boot_time }}<br>
+                <b>LXC:</b> {{ vlxc }} - <b>Libvirt:</b> {{ vlibvirt }} - <b>Hype:</b> {{ vhype }}
+                </div>
+</div>
+</div>
+<div class="col-4">
+<div class="card">
+                <div class="card-header">
+                LXC
+                </div>
+                <div class="card-body">
+                <h1 class="display-6" style="color:green">Up : {{ lxc_up }}</h1>
+                <p style="color:red" class="fw-light">Down : {{ lxc_down }}</p>
+                </div>
+</div>
+</div>
+<div class="col-4">
+<div class="card">
+
+                <div class="card-header">
+                VM
+                </div>
+                <div class="card-body">
+                <h1 class="display-6" style="color:green">Up : {{ vm_up }}</h1>
+                <p style="color:red" class="fw-light">Down : {{ vm_down }}</p>
+                </div>
+</div>
+</div>
+</div>
+<br>
+<!-- Monit -->
+<div class="row">
+<div class="col-6">
+	<div class="card">
+		<div class="card-header">
+			Monitor
+		</div>
+		<div class="card-body">
+			<canvas id="canvas"></canvas>
+		</div>
+	</div>
+</div>
+<div class="col-6">
+<div class="card">
+<div class="card-header">
+    Usage
+</div>
+<div class="card-body">
+<p class="fw-light">CPU</p>
+<div class="progress">
+<div id="cpubar" class="progress-bar progress-bar-striped" role="progressbar" style="width: {{ full['cpu']['percent'] }}%;" aria-valuenow={{ full['cpu']['percent'] }} aria-valuemin="0" aria-valuemax="100">{{ full['cpu']['percent'] }}%</div>
+</div>
+<small class="form-text text-muted" id="cpudetail">
+user : {{ full['cpu']['time_user'] }} / nice : {{ full['cpu']['time_nice'] }} / system : {{ full['cpu']['time_system'] }} / idle : {{ full['cpu']['time_idle'] }} / iowait : {{ full['cpu']['time_iowait'] }} / irq : {{ full['cpu']['time_irq'] }} / softirq : {{ full['cpu']['time_softirq'] }} / steal : {{ full['cpu']['time_steal'] }} / guest : {{ full['cpu']['time_guest'] }} / guest nice : {{ full['cpu']['time_guest_nice'] }}
+</small>
+<br><br>
+<p class="fw-light">MEM</p>
+<div class="progress">
+  <div id="membar" class="progress-bar bg-warning progress-bar-striped" role="progressbar" style="width: {{ full['mem']['percent'] }}%;" aria-valuenow={{ full['mem']['percent'] }} aria-valuemin="0" aria-valuemax="100">{{ full['mem']['percent'] }}%</div>
+</div>
+<small class="form-text text-muted" id="memdetail">
+total : {{ full['mem']['total'] }} / available : {{ full['mem']['available'] }} / used : {{ full['mem']['used'] }} / free : {{ full['mem']['free'] }} / active : {{ full['mem']['active'] }} / inactive : {{ full['mem']['inactive'] }} / buffers : {{ full['mem']['buffers'] }} / cached : {{ full['mem']['cached'] }} / shared : {{ full['mem']['shared'] }} / slab : {{ full['mem']['slab'] }}
+</small>
+<br><br>
+<p class="fw-light">SWAP</p>
+<div class="progress">
+  <div id="swapbar" class="progress-bar bg-danger progress-bar-striped" role="progressbar" style="width: {{ full['swap']['percent'] }}%;" aria-valuenow={{ full['swap']['percent'] }} aria-valuemin="0" aria-valuemax="100">{{ full['swap']['percent'] }}%</div>
+</div>
+<small class="form-text text-muted" id="swapdetail">
+total : {{ full['swap']['total'] }} / used : {{ full['swap']['used'] }} / free : {{ full['swap']['free'] }} / sin : {{ full['swap']['sin'] }} / sout : {{ full['swap']['sout'] }}
+</small>
+</div>
+</div>
+</div>
+</div>
+<br>
+<!-- Disk -->
+<div class="row">
+<div class="col-12">
+<div class="card">
+  <div class="card-header">
+    Disks
+  </div>
+  <div class="card-body">
+{% for key in full %}
+{% if key.startswith('disk_') %}
+<br>
+<p class="fw-light">{{ full[key]['mountpoint'] }}</p>
+<div class="progress">
+  <div class="progress-bar bg-info" role="progressbar" style="width: {{ full[key]['size_percent'] }}%;" aria-valuenow={{ full[key]['size_percent'] }} aria-valuemin="0" aria-valuemax="100">{{ full[key]['size_percent'] }}%</div>
+</div>
+<small class="form-text text-muted">
+total : {{ full[key]['size_total'] }} / used : {{ full[key]['size_used'] }} / free : {{ full[key]['size_free'] }} / device : {{ full[key]['device'] }} / fstype : {{ full[key]['fstype'] }} / opt: {{ full[key]['opts'] }} / maxfile : {{ full[key]['maxfile'] }} / maxpath : {{ full[key]['maxpath'] }}
+</small>
+</br>
+{% endif %}
+{% endfor %}
+  </div>
+</div>
+</div>
+</div>
+<br>
+<div class="row">
+<div class="col-12">
+<div class="card">
+  <div class="card-header">
+    Network
+  </div>
+  <div class="card-body">
+<table class="table fw-light">
+<tr><td>Name</td><td>IPv4</td><td>Netmask v4</td><td>IPv6</td><td>Netmask v6</td><td>Sent</td><td>Received</td></tr>
+{% for key in full %}
+{% if key.startswith('net_') %}
+<tr><td>{{ full[key]['name'] }}</td><td>{{ full[key]['address_v4'] }}</td><td>{{ full[key]['netmask_v4'] }}</td><td>{{ full[key]['address_v6'] }}</td><td>{{ full[key]['netmask_v6'] }}</td><td>{{ full[key]['bytes_sent'] }}</td><td>{{ full[key]['bytes_recv'] }}</td><tr>
+{% endif %}
+{% endfor %}
+</table>
+  </div>
+</div>
+</div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        const config = {
+            type: 'line',
+            data: {
+                labels: Array(60).fill("0000-00-00 00:00:00"),
+                datasets: [{
+                    label: "CPU %",
+                    backgroundColor: 'rgb(0, 191, 255)',
+                    borderColor: 'rgb(0, 191, 255)',
+                    data: Array(60).fill(null),
+                    fill: false,
+                    pointRadius: 0,
+                },{
+                    label: "Mem %",
+                    backgroundColor: 'rgb(255,200,20)',
+                    borderColor: 'rgb(255,200,20)',
+                    data: Array(60).fill(null),
+                    fill: false,
+                    pointRadius: 0,
+                },{
+                    label: "Swap %",
+                    backgroundColor: 'rgb(255, 20, 100)',
+                    borderColor: 'rgb(255, 20, 100)',
+                    data: Array(60).fill(null),
+                    fill: false,
+                    pointRadius: 0,
+                }],
+            },
+            options: {
+                responsive: true,
+                title: {
+                    display: false,
+                },
+                tooltips: {
+                    mode: 'index',
+                    intersect: false,
+                },
+                hover: {
+                    mode: 'nearest',
+                    intersect: true
+                },
+                scales: {
+                    xAxes: [{
+                        display: false,
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Time'
+                        }
+                    }],
+                    yAxes: [{
+                        display: true,
+                        scaleLabel: [{
+                            display: true,
+                            labelString: 'CPU'
+                        },{
+                            display: true,
+                            labelString: 'Mem'
+                        },{
+                            display: true,
+                            labelString: 'Swap'
+                        }]
+                    }]
+                }
+            }
+        };
+
+        const context = document.getElementById('canvas').getContext('2d');
+        const lineChart = new Chart(context, config);
+        const source = new EventSource("/chart-ressources/");
+        source.onmessage = function (event) {
+            const data = JSON.parse(event.data);
+            if (config.data.labels.length === 60) {
+                config.data.labels.shift();
+                config.data.datasets[0].data.shift();
+                config.data.datasets[1].data.shift();
+                config.data.datasets[2].data.shift();
+            }
+            config.data.labels.push(data.time);
+            config.data.datasets[0].data.push(data.cpu_percent);
+            config.data.datasets[1].data.push(data.mem_percent);
+            config.data.datasets[2].data.push(data.swap_percent);
+            lineChart.update();
+            $("#cpubar").html(data.cpu_percent+"%");
+            $("#membar").html(data.mem_percent+"%");
+            $("#swapbar").html(data.swap_percent+"%");
+            $("#cpudetail").html("user : "+data.cpu_time_user+" / nice : "+data.cpu_time_nice+" / system : "+data.cpu_time_system+" / idle : "+data.cpu_time_idle+" / iowait : "+data.cpu_time_iowait+" / irq : "+data.cpu_time_irq+" / softirq : "+data.cpu_time_softirq+" / steal : "+data.cpu_time_steal+" / guest : "+data.cpu_time_guest+" / guest nice : "+data.cpu_time_guest_nice);
+            $("#swapdetail").html("total : "+data.swap_total+" / used : "+data.swap_used+" / free : "+data.swap_free+" / sin : "+data.swap_sin+" / sout : "+data.swap_sout);
+            $("#memdetail").html("total : "+data.mem_total+" / available : "+data.mem_available+" / used : "+data.mem_used+" / free : "+data.mem_free+" / active : "+data.mem_active+" / inactive : "+data.mem_inactive+" / buffers : "+data.mem_buffers+" / cached : "+data.mem_cached+" / shared : "+data.mem_shared+" / slab : "+data.mem_slab);
+            var element_cpubar = document.getElementById("cpubar");
+            var element_membar = document.getElementById("membar");
+            var element_swapbar = document.getElementById("swapbar");
+
+            var element_cpudetail = document.getElementById("cpudetail");
+
+            element_cpubar.style.width = data.cpu_percent+"%"
+            element_membar.style.width = data.mem_percent+"%"
+            element_swapbar.style.width = data.swap_percent+"%"
+        }
+    });
+
+
+</script>
+{% endblock %}
+
+

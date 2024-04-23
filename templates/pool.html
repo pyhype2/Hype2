@@ -1,0 +1,39 @@
+{% extends 'layout.html' %}
+{% block content %}
+{% include 'menu.html' %}
+<div class="container">
+{% for pool in list_pool_full %}
+{{ pool[0] }}<hr>
+<div class="progress">
+<div id="cpubar" class="progress-bar progress-bar-striped" role="progressbar" style="width: {{ pool[6] }}%;" aria-valuenow={{ pool[6] }} aria-valuemin="0" aria-valuemax="100">{{ pool[6] }}%</div>
+</div>
+<small class="form-text text-muted">
+UUID : {{ pool[1] }} / Active : {{ pool[2] }} / Total : {{ pool[3] }} / Used : {{ pool[4] }} / Free : {{ pool[5] }}
+</small>
+<table class="table">
+<tr><th>Name</th><th>Total</th><th>Used</th><th></th><th></th>
+{% for volume in pool[7] %}
+<tr>
+<td>{{ volume[0] }}</td>
+<td>{{ volume[1] }}</td>
+<td>{{ volume[2] }}</td>
+<td>
+<div class="progress">
+<div id="cpubar" class="progress-bar progress-bar-striped" role="progressbar" style="width: {{ volume[3] }}%;" aria-valuenow={{ volume[3] }} aria-valuemin="0" aria-valuemax="100">{{ volume[3] }}%</div>
+</div>
+
+<td>{{ volume[3] }}%</td>
+<td>
+<form action="/del_volume" method="post">
+<input type="hidden" name="pool_name" value="{{ pool[0] }}">
+<button type="submit" class="btn btn-outline-danger btn-hype" name="volume_name" value="{{ volume[0] }}" onclick="loading();">
+<i class="fa fa-trash" aria-hidden="true"></i></button></form>
+</td>
+</tr>
+{% endfor %}
+</table>
+
+{% endfor %}
+</div>
+{% endblock %}
+

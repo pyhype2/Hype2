@@ -1,0 +1,71 @@
+{% extends 'layout.html' %}
+{% block content %}
+{% include 'menu.html' %}
+<div class="container">
+       <div class="card">
+                <div class="card-header">
+		DropZone
+                </div>
+        	<div class="card-body">
+			<form action="{{ url_for('upload_files') }}" class="dropzone" id="file-dropzone">
+        	</div>
+	</div>
+<br>
+	<div class="card">
+  		<div class="card-header">
+    			ISO
+  		</div>
+  	<div class="card-body">
+{%for iso in list_iso %}
+		<div class="row">
+			<div class="col-6">
+     				{{ iso[0] }} ( {{ iso[1] }} )
+			</div>
+			<div class="col-1">
+				<form action="/deliso" method="post"><button type="submit" class="btn btn-outline-danger btn-hype" value="{{ iso[0] }}" name="fichier"><i class="fa fa-trash"></i></button></form>
+			</div>
+			<div class="col-5">
+			</div>
+		</div>
+{%endfor%}
+	</div>
+	</div>
+<br>
+	<div class="card">
+  		<div class="card-header">
+    			Mount ISO on Virtual Server
+  		</div>
+  		<div class="card-body">
+			<div class="row">
+				<div class="col-6">
+					<form action="/mountiso" method="post">
+					<select id="isolist" class="form-control" name="iso" required>
+{%for iso in list_iso_mount %}
+        				<option value={{ iso[0] }}>{{ iso[0] }}</option>
+{%endfor%}
+					</select>
+				</div>
+				<div class="col-5">
+					<select id="vmlist" class="form-control" name="vm" required>
+{%for vm in list_vm %}
+        				<option value={{ vm }}>{{ vm }}</option>
+{%endfor%}
+					</select>
+				</div>
+				<div class="col-1">
+					<button name="mountiso" type="submit" class="btn btn-outline-success btn-hype"><i class="fa fa-check"></i></button>
+				</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- DropZone -->
+<script>
+var myDropzone = new Dropzone("#file-dropzone", {
+    maxFilesize: 10240, // 10Go in Mo
+    timeout: 0,
+});
+</script>
+
+{% endblock %}

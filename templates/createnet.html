@@ -1,0 +1,36 @@
+{% extends 'layout.html' %}
+{% block content %}
+{% include 'menu.html' %}
+<div class="container">
+        <div class="row">
+                <div class="col-12">
+                        <div class="card">
+                                <div class="card-header">
+                                        <i class="fa-solid fa-ethernet"></i> - Build Network
+                                </div>
+                                <div class="card-body">
+
+		<form action="/createint" method="post">
+                <label for="net_name">Network name (no space)</label>
+                <input type="text" id="net_name" name="net_name" class="form-control" placeholder="no_net" required><br>
+                <label for="net_int">Interface name (no space)</label>
+                <input type="text" id="net_int" name="net_int" class="form-control" placeholder="example veth0" required><br>
+                <label for="ip_int">Interface IP</label>
+                <input type="text" id="ip_int" name="ip_int" class="form-control" placeholder="example: 10.2.0.1" required><br>
+                <label for="mask_int">Interface mask</label>
+                <input type="text" id="mask_int" name="mask_int" class="form-control" placeholder="example: 255.255.255.0" required><br>
+                <strong>DHCP Configuration</strong>
+                <label for="min_dhcp">DHCP minimum IP</label>
+                <input type="text" id="min_dhcp" name="min_dhcp" class="form-control" placeholder="example: 10.2.0.2" required><br>
+                <label for="max_dhcp">DHCP maximum IP</label>
+                <input type="text" id="max_dhcp" name="max_dhcp" class="form-control" placeholder="example: 10.2.0.254" required><br>
+                <button name="creation" class="btn btn-outline-secondary  btn-hype" type="submit" onclick="loading();">Create</button>
+        	</form>
+
+                                </div>
+                        </div>
+                </div>
+        </div>
+<br>
+
+{% endblock %}
