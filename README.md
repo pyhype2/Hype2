@@ -16,6 +16,7 @@ On your host, create the bridge interface **br0**, according to your network wit
 - **ip** your fixed IP 
 - **netmask** your netmask (example: 255.255.255.0)
 - **gateway** your gateway
+
 ```sh
 auto br0
 iface br0 inet static
@@ -30,6 +31,9 @@ gateway <gateway>
 auto <int>
 iface <int> inet manual
 ```
+
+NB:You can also create the bridge in cli, please refer to : https://www.baeldung.com/linux/bridging-network-interfaces as example.
+
 **2 - Install git and clone the repo**
 
 ```sh
@@ -44,6 +48,7 @@ cd Hype2
 sh ./install.sh
 ```
 
+Next, follow the chapter *Run and use* below.
 
 ## Manual installation
 
@@ -126,7 +131,7 @@ For security reason, you should remove **db.db.admin_example**
 
 If you want to create this database by yourself, you can :
 
-### Create Database for users (Manual creation)
+#### Create Database for users (Manual creation)
 
 ```sh
 sqlite3 db.db
@@ -134,7 +139,7 @@ sqlite3 db.db
 CREATE TABLE user (id INTEGER PRIMARY KEY AUTOINCREMENT, username NVARCHAR(200) NULL, email NVARCHAR(200) NULL, password NVARCHAR(200) NULL);
 ```
 
-### Create first user
+#### Create first user
 
 **1 - Generate encrypted password :**
 
