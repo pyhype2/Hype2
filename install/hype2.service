@@ -1,9 +1,9 @@
 [Unit]
-Description= Hype service
+Description= Hype2 service
 After=multi-user.target
 [Service]
 Type=simple
 Restart=always
-ExecStart=/usr/bin/python3 /data/BAS/HYPE2/app.py
+ExecStart=/usr/bin/python3 <path_to_Hype2>/app.py
 [Install]
 WantedBy=multi-user.target

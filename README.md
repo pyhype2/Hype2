@@ -230,13 +230,13 @@ ProxyPassReverse  / https://<your_ip>:5007/
 ```sh
 python3 app.py
 ```
-and go to https://www.example.com (or https://<server_ip>:5007 without RP) with your credentials (mail and normal password or admin)
+and go to https://<server_ip> (or https://<server_ip>:5007 without RP) with your credentials (mail and normal password or admin)
 
 NB: The first LXC creation will take time to download files. Be patient 
 
 ### Systemd
 
-You can manage hype using Systemd management by creating a file *hype.service* :
+You can manage hype using Systemd management by creating a file *hype2.service* :
 
 ```sh
 [Unit]
@@ -245,7 +245,7 @@ After=multi-user.target
 [Service]
 Type=simple
 Restart=always
-ExecStart=/usr/bin/python3 <path_to_change>/app.py
+ExecStart=/usr/bin/python3 <path_to_Hype2>/app.py
 [Install]
 WantedBy=multi-user.target
 
@@ -254,8 +254,8 @@ WantedBy=multi-user.target
 Move or copy this file in */etc/systemd/system/* and you can then enable/disable it from boot start, and/or start/stop the app.
 
 ```sh
-systemctl enable hype.service
-systemctl start hype.service
+systemctl enable hype2.service
+systemctl start hype2.service
 ```
 ## Configuration
 
