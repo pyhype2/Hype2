@@ -12,7 +12,7 @@ Server[Server] <----> LXC((LXC))
 
 On your host, create the bridge interface **br0**, according to your network with :
 
-- **int** The physical interface (example : enp1s0)
+- **int** The existing physical interface (example : enp1s0)
 - **ip** your fixed IP 
 - **netmask** your netmask (example: 255.255.255.0)
 - **gateway** your gateway
@@ -25,6 +25,10 @@ bridge_maxwait 0
 address <ip>
 netmask <netmask>
 gateway <gateway>
+
+
+auto <int>
+iface <int> inet manual
 ```
 **2 - Install git and clone the repo**
 
