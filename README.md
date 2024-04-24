@@ -1,30 +1,57 @@
 # Hype²
 
-## News
-- Now compatible with Windows Install, just take care to launch the driver before scanning disks.
-- Screenshot and VM live edition (RAM and vCPU until Max declared) added 
-- Disk creation and resize
-- Nework management (add,del network and interfaces)
-
 ```mermaid
 graph LR
 Webpage[Web page] <--Flask--> Server[Server]
 Server[Server] <----> Qemu((Qemu))
 Server[Server] <----> LXC((LXC))
 ```
+## Quick Start
+
+**1 - Create a bridge interface**
+
+On your host, create the bridge interface **br0**, according to your network with :
+
+- **int** The physical interface (example : enp1s0)
+- **ip** your fixed IP 
+- **netmask** your netmask (example: 255.255.255.0)
+- **gateway** your gateway
+```sh
+auto br0
+iface br0 inet static
+bridge_ports <int>
+bridge_fd 0
+bridge_maxwait 0
+address <ip>
+netmask <netmask>
+gateway <gateway>
+```
+**2 - Install git and clone the repo**
+
+```sh
+apt install git
+git clone https://github.com/pyhype2/Hype2.git
+```
+
+**3 - Start the install script**
+
+```sh
+cd Hype2
+sh ./install.sh
+```
 
 
+## Manual installation
 
-## Install requirements (Debian 12 example)
+### Install requirements
 For your safety you can also find the packages on pip or pipx and the requirement.txt file.
 
-1 - Update and Install packages :
+**1 - Update and Install packages :**
 
 ```sh
 apt-get update -y -qq
 apt-get install git lxc lxcfs lxc-templates qemu qemu-utils qemu-kvm virtinst bridge-utils virt-manager libvirt-daemon libvirt-daemon-system virt-viewer libvirt-clients libosinfo-bin websockify sqlite3 novnc
 apt-get install python3 python3-flask python3-flask-login python3-flask-sqlalchemy python3-requests python3-lxc python3-libvirt python3-psutil python3-werkzeug python3-websockify python3-novnc python3-flask-socketio python3-openssl
-
 apt-get install openvswitch-switch openvswitch-common
 
 ```
@@ -34,19 +61,18 @@ Clone the repository :
 ```sh
 git clone https://github.com/pyhype2/Hype2.git
 cd Hype2
-mkdir storage/disks
 ```
 
-2 - Configure Libvirt to start on boot
+**2 - Configure Libvirt to start on boot**
 
 ```sh
 systemctl --quiet enable --now libvirtd
 systemctl --quiet  start libvirtd
 ```
 
-3 - Create a bridge nework
+**3 - Create a bridge network**
 
-This bridge will allowed you to connect your Virtuals Servers and Containers to your local network in order to access them easely.
+This bridge will allow you to connect your Virtual Servers and Containers to your local network in order to access them easily.
 
 ```sh
 cp ./bridged.xml /usr/share/libvirt/networks/
@@ -54,23 +80,23 @@ virsh net-define bridged.xml
 virsh net-start bridged
 virsh net-autostart bridged
 ```
-On your host, create the bridge interface "bro", according to your network with :
- - @@@ The physical interface
- - XXX.XXX.XXX.XXX your fixed IP (recommended)
- - YYY.YYY.YYY.YYY your netmask
- - ZZZ.ZZZ.ZZZ.ZZZ your gateway
 
+On your host, create the bridge interface "br0", according to your network with :
+- **int** The physical interface (example : enp1s0)
+- **ip** your fixed IP
+- **netmask** your netmask (example: 255.255.255.0)
+- **gateway** your gateway
 ```sh
 auto br0
 iface br0 inet static
-bridge_ports @@@@
+bridge_ports <int>
 bridge_fd 0
 bridge_maxwait 0
-address XXX.XXX.XXX.XXX
-netmask YYY.YYY.YYY.YYY
-gateway ZZZ.ZZZ.ZZZ.ZZZ
+address <ip>
+netmask <netmask>
+gateway <gateway>
 ```
-4 - Modify Qemu configuration
+**4 - Modify Qemu configuration**
 
 You will have to uncomment these lines :
 
@@ -82,9 +108,9 @@ group=root
 
 This will ajust rights for Qemu to run as root and enable VNC on all address for the console.
 
-## Database for users
+### Database for users
 
-A default Database is provided in the git (db.db.admin_example), the default user is admin@admin.com / admin.
+A default Database is provided in the git (install/db.db.admin_example), the default user is admin@admin.com / admin.
 To use this database, just change the name from db.db.admin_example to db.db
 
 Once connected, you will be able to create/manage users directly on software.
@@ -102,12 +128,11 @@ If you want to create this database by yourself, you can :
 sqlite3 db.db
 
 CREATE TABLE user (id INTEGER PRIMARY KEY AUTOINCREMENT, username NVARCHAR(200) NULL, email NVARCHAR(200) NULL, password NVARCHAR(200) NULL);
-
 ```
 
 ### Create first user
 
-1 - Generate encrypted password :
+**1 - Generate encrypted password :**
 
 ```sh
 python3
@@ -115,7 +140,7 @@ import app
 app.encrypt('Password')
 
 ```
-2 - Fill Database with user info :
+**2 - Fill Database with user info :**
 
 ```sh
 sqlite3 db.db
@@ -123,7 +148,7 @@ sqlite3 db.db
 INSERT INTO user (id,username,email,password) VALUES (1,'<you_username>','<your_email>','<your_previous_encrypted_password');
 ```
 
-## Configure Reverse Proxy to get access to Consoles
+### Configure Reverse Proxy to get access to Consoles
 
 In order to access to the consoles which are running websockets on other ports (6080 vor VNC and 5008 for Pyxterm),
 a Reverse proxy is needed.
@@ -138,7 +163,7 @@ and using a tool such as :
 
 https://www.realvnc.com/en/connect/download/viewer/
 
-for VNC access (on port 6080).
+For VNC access (on port 6080).
 
 To set your Reverse proxy, you can use the examples bellow (adapt to your case of course).
 
@@ -204,14 +229,12 @@ ProxyPassReverse  / https://<your_ip>:5007/
 ## Run and use
 ```sh
 python3 app.py
-
-and go to https://www.example.com (or https://<server_ip>:5007 without RP) with your credentials (mail and normal password or admin)
-
 ```
+and go to https://www.example.com (or https://<server_ip>:5007 without RP) with your credentials (mail and normal password or admin)
 
 NB: The first LXC creation will take time to download files. Be patient 
 
-## Systemd
+### Systemd
 
 You can manage hype using Systemd management by creating a file *hype.service* :
 
@@ -231,11 +254,12 @@ WantedBy=multi-user.target
 Move or copy this file in */etc/systemd/system/* and you can then enable/disable it from boot start, and/or start/stop the app.
 
 ```sh
+systemctl enable hype.service
 systemctl start hype.service
 ```
 ## Configuration
 
-You can also change some configuration in the file *configuration.py* such as flask port, storage location...use it at your own risk.
+You can also change some configuration in the file **configuration.py** such as flask port, storage location...use it at your own risk.
 
 
 ## Windows requirement (Virtuio)
@@ -247,13 +271,10 @@ https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/archive-virtio/
 You will also need to configure the ISO name in the *configuration.py* file.
 
 ```sh
-virtuo_path= path+'/storage/win/'
 virtuo_file='virtio-win-0.1.229.iso'
-
 ```
 
-NB: Depending on the Windows version you need, you will need to use a specific Virtio version. 
-    Lastest version will remove the old Windows version driver.
+*NB: Depending on the Windows version you need, you will need to use a specific Virtio version. Lastest version will remove the old Windows version driver.*
 
 
 ## Others
