@@ -39,4 +39,6 @@ mv /etc/libvirt/qemu.conf /etc/libvirt/qemu.conf.original
 echo 'vnc_listen = "0.0.0.0"' >> /etc/libvirt/qemu.conf
 echo 'user = "root"' >> /etc/libvirt/qemu.conf
 echo 'group = "root"' >> /etc/libvirt/qemu.conf
+clear
 echo "Installation Done"
+echo "You should reboot before first usage"
