@@ -16,8 +16,7 @@ app = Flask(__name__, template_folder="templates", static_folder=".", static_url
 app.config["SECRET_KEY"] = "secret!"
 app.config["fd"] = None
 app.config["child_pid"] = None
-socketio = SocketIO(app)
-
+socketio = SocketIO(app, cors_allowed_origins='*')
 
 def set_winsize(fd, row, col, xpix=0, ypix=0):
     winsize = struct.pack("HHHH", row, col, xpix, ypix)
