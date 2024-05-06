@@ -14,7 +14,7 @@
 </td><td>
         <form action="/stop_lxc" method="post"><button type="submit" class="btn btn-outline-secondary btn-hype" value="{{ act_lxc[0] }}" name="stop" onclick="loading();"><i class="fa fa-stop" aria-hidden="true"></i></button></form>
 </td><td>
-	<form action="/console_lxc" method="post" target=”_blank”><button type="submit" class="btn btn-outline-info btn-hype" value="{{ act_lxc[0] }}" name="lxc_name" onclick="loading();"><i class="fa fa-terminal"></i></button></form>
+	<form action="/console_lxc" method="post"><button type="submit" class="btn btn-outline-info btn-hype" value="{{ act_lxc[0] }}" name="lxc_name" onclick="loading();"><i class="fa fa-terminal"></i></button></form>
 </td><td>
         <form action="/destroy_lxc" method="post"><button type="submit" class="btn btn-outline-danger btn-hype disabled" value="{{ act_lxc[0] }}" name="destroy" onclick="loading();"><i class="fa fa-trash" aria-hidden="true"></i></button></form>
 </td><td>
@@ -103,7 +103,6 @@
         <form action="/snapvm" method="post"><button type="submit" class="btn btn-outline-secondary btn-hype" value="{{ inact_vm[0] }}" name="snap" onclick="loading();"><i class="fa-solid fa-box-archive"></i></button></form>
 </td><td>
          <form action="/editvm" method="post"><button type="submit" class="btn btn-outline-warning btn-hype" value="{{ inact_vm[0] }}" name="edit"  onclick="loading();"><i class="fa-solid fa-wrench"></i></button></form>
-<!--         <form action="/editvm" method="post"><button type="submit" class="btn btn-outline-warning btn-hype disabled" value="{{ inact_vm[0] }}" name="edit"  onclick="loading();"><i class="fa-solid fa-wrench"></i></button></form> -->
 </td><td>
 {% if inact_vm[1] == 1 %}
 <table class="table table-borderless"><tr><th>
