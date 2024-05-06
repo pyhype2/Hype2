@@ -63,7 +63,7 @@ For your safety you can also find the packages on pip or pipx and the requiremen
 
 ```sh
 apt-get update -y -qq
-apt-get install git lxc lxcfs lxc-templates qemu qemu-utils qemu-kvm virtinst bridge-utils virt-manager libvirt-daemon libvirt-daemon-system virt-viewer libvirt-clients libosinfo-bin websockify sqlite3 novnc
+apt-get install git lxc lxcfs lxc-templates qemu qemu-utils qemu-kvm virtinst bridge-utils virt-manager libvirt-daemon libvirt-daemon-system virt-viewer libvirt-clients libosinfo-bin websockify sqlite3 novnc ovmf swtpm swtpm-tools -y
 apt-get install python3 python3-flask python3-flask-login python3-flask-sqlalchemy python3-requests python3-lxc python3-libvirt python3-psutil python3-werkzeug python3-websockify python3-novnc python3-flask-socketio python3-openssl
 apt-get install openvswitch-switch openvswitch-common
 
@@ -185,12 +185,16 @@ Example for nginx:
 server {
     listen 443 ssl;
     server_name www.example.com;
-
+    
     ssl_certificate /path/to/your/cert.pem;
     ssl_certificate_key /path/to/your/privkey.pem;
     ssl_verify_client off;
     ssl_protocols TLSv1.2 TLSv1.3;
     ssl_ciphers 'TLS_AES_128_GCM_SHA256:TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384';
+    proxy_read_timeout 20m;
+    proxy_connect_timeout 20m;
+    proxy_send_timeout 20m;
+    client_max_body_size 10G;
 
     location /websockify {
         proxy_pass http://<your_ip>:6080/websockify;
