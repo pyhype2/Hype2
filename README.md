@@ -4,6 +4,9 @@
 
 # Hype²
 
+[Full documentation](https://github.com/pyhype2/Hype2/wiki/Hype%C2%B2-Documentation)
+
+
 ```mermaid
 graph LR
 Webpage[Web page] <--Flask--> Server[Server]
