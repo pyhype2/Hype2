@@ -76,3 +76,15 @@ def get_vm_ips(vm_name):
 def destroy_vm(vm_name):
     dom=conn.lookupByName(vm_name)
     dom.undefine()
+    dom.undefineFlags(libvirt.VIR_DOMAIN_UNDEFINE_NVRAM)
+
+def enable_emulated_tpm(vm_name):
+    dom = conn.lookupByName(vm_name)
+    tpm_xml = """
+    <tpm model='tpm-tis'>
+      <backend type='emulator' version='2.0'/>
+    </tpm>
+    """
+    flags = (libvirt.VIR_DOMAIN_AFFECT_CONFIG | libvirt.VIR_DOMAIN_AFFECT_LIVE | libvirt.VIR_DOMAIN_AFFECT_CURRENT)
+    dom.updateDeviceFlags(tpm_xml, flags )
+
