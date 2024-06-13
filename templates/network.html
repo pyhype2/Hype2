@@ -2,13 +2,13 @@
 {% block content %}
 {% include 'menu.html' %}
 <center>
-<a href="/createnet" class="btn btn-outline-danger"><i class="fa-solid fa-plus"></i> Add Network</a></br></br></br>
+<a href="/createnet" class="btn btn-outline-danger"><i class="fa-solid fa-plus"></i> <div class="langclass" id="lang_anetwork">Add Network</div></a></br></br></br>
 <div class="container">
         <div class="row">
                 <div class="col-12">
                         <div class="card">
                                 <div class="card-header">
-                                        Physical interface
+                                        <div class="langclass" id="lang_pinterface">Physical interface</div>
                                 </div>
                                 <div class="card-body">
                         {% for pint in net_hard_int %}
@@ -27,7 +27,7 @@
                 <div class="col-12">
                         <div class="card">
                                 <div class="card-header">
-                                        Virtual interface
+                                        <div class="langclass" id="lang_vinterface">Virtual interface</div>
                                 </div>
                                 <div class="card-body">
 
@@ -37,7 +37,7 @@
                 <div class="col-12">
                         <div class="card">
                                 <div class="card-header">
-					<i class="fa-solid fa-ethernet"></i> {{ noac }} Not active
+					<i class="fa-solid fa-ethernet"></i> {{ noac }} <div class="langclass" id="lang_nactive">Not active</div>
                                 </div>
                                 <div class="card-body">
 </div></div></div></div></div>

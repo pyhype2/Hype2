@@ -6,14 +6,14 @@
 		<div class="col-12">
 			<div class="card">
 				<div class="card-header">
-					<i class="fa fa-cube"></i> - Build Container
+					<i class="fa fa-cube"></i> - <div class="langclass" id="lang_createc">Create Container</div>
 				</div>
 				<div class="card-body">
 
 <form action="/creation" method="post">
-		<label for="cnom">Name</label>
+		<label for="cnom"><div class="langclass" id="lang_name">Name</div></label>
 		<input type="text" id="cnom" name="nom" class="form-control" placeholder="Container" required><br>
-		<label for="cip">Optional static IP</label>
+		<label for="cip"><div class="langclass" id="lang_sIP">Optional static IP</div></label>
 		<input type="text" id="cip" name="ip" class="form-control" placeholder="192.168.XX.XX/YY"><br>
 		<label for="oslist">OS</label>
 		<select id="oslist" name="os" class="form-control">
@@ -21,7 +21,7 @@
 			<option value={{ dist[1] }}>{{ dist[0] }}</option>
 		{%endfor%}
 		</select><br>
-		<button name="creation" class="btn btn-outline-secondary  btn-hype" type="submit" onclick="loading();">Create</button>
+		<button name="creation" class="btn btn-outline-secondary  btn-hype" type="submit" onclick="loading();"><div class="langclass" id="lang_create">Create</div></button>
 	</form>
 
 				</div>
@@ -31,17 +31,17 @@
 <br>
 	<div class="card">
   		<div class="card-header">
-    			<i class="fa-solid fa-desktop"></i> - Create Virtual Server
+    			<i class="fa-solid fa-desktop"></i> - <div class="langclass" id="lang_createvm">Create Virtual Server</div>
   		</div>
   		<div class="card-body">
 			<form action="/creationvm" method="post">
-				<label for="nom">Name</label>
+				<label for="nom"><div class="langclass" id="lang_name2">Name</div></label>
 					<input type="text" name="vm_name" class="form-control" placeholder="Server" required><br>
-				<label for="ram">Memory (in MiB)</label>
+				<label for="ram"><div class="langclass" id="lang_memoryin">Memory (in MiB)</div></label>
 					<input type="text" name="ram" class="form-control" placeholder="1024" required><br>
 				<label for="cpu">vCPU</label>
 					<input type="text" name="cpu" class="form-control" placeholder="1" required><br>
-				<label for="disk">Disk (in GB)</label>
+				<label for="disk"><div class="langclass" id="lang_diskin">Disk (in GB)</div></label>
 					<input type="text" class="form-control" name="disk" placeholder="10" required><br>
 				<label for="os">OS</label>
 					<select id="profilelist" class="form-control" name="os" placeholder="Profile" required>
@@ -55,13 +55,13 @@
         					<option value={{ iso[0] }}>{{ iso[0] }}</option>
 					{%endfor%}
 					</select><br>
-				<label for="net">Network</label>
+				<label for="net"><div class="langclass" id="lang_network2">Network</div></label>
 					<select id="netlist" class="form-control"  name="net" required>
 					{%for net in list_net %}
                         			<option value={{ net }}>{{ net }}</option>
 					{%endfor%}
 					</select><br>
-				<button name="creation" class="btn btn-outline-secondary  btn-hype" type="submit" onclick="loading();">Create</button>
+				<button name="creation" class="btn btn-outline-secondary  btn-hype" type="submit" onclick="loading();"><div class="langclass" id="lang_create2">Create</div></button>
 			</form>
 		</div>
 	</div>
