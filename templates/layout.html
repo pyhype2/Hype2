@@ -166,6 +166,47 @@ document.getElementById('btnSwitch').addEventListener('click',()=>{
     }
 })
 
+//Get the cookie related to language
+var cookieValue = document.cookie
+  .split("; ")
+  .find((row) => row.startsWith("lang="))
+  ?.split("=")[1];
+// Appli the lang related to the cookie
+window.onload = function() {
+      if (cookieValue == 'fr'){
+         document.getElementById("lang_state").innerHTML = "Etat"
+         document.getElementById("lang_dashboard").innerHTML = "Tableau de bord"
+         document.getElementById("lang_build").innerHTML = "Créer"
+         document.getElementById("lang_pools").innerHTML = "Stockage"
+         document.getElementById("lang_network").innerHTML = "Réseau"
+         document.getElementById("lang_adduser").innerHTML = "Ajouter utilisateur"
+         document.getElementById("lang_param").innerHTML = "Paramètres"
+         document.getElementById("lang_lang").innerHTML = "Langue"
+      }
+      else {
+         document.getElementById("lang_state").innerHTML = "State"
+         document.getElementById("lang_dashboard").innerHTML = "Dashboard"
+         document.getElementById("lang_build").innerHTML = "Build"
+         document.getElementById("lang_pools").innerHTML = "Pools"
+         document.getElementById("lang_network").innerHTML = "Network"
+         document.getElementById("lang_adduser").innerHTML = "Add user"
+         document.getElementById("lang_param").innerHTML = "Parameters"
+         document.getElementById("lang_lang").innerHTML = "Language"
+      }
+}
+//Change the cookie and reload
+document.getElementById('btnLang').addEventListener('click',()=>{
+    if (cookieValue == 'fr') {
+        document.cookie = "lang=en";
+        window.location.reload();
+    }
+    else {
+        document.cookie = "lang=fr";
+        window.location.reload();
+    }
+})
+
+
 </script>
 </body>
 </html>

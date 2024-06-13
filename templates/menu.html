@@ -1,13 +1,13 @@
  <div class="side-navbar active-nav d-flex justify-content-between flex-wrap flex-column" id="sidebar">
     <ul class="nav flex-column text-dark w-100 ">
       <li class="nav-link">
-	<a class="nav-link text-body text-decoration-none fw-light" href="/"><i class="fa fa-pie-chart"></i> Dashboard</a>
+	<a class="nav-link text-body text-decoration-none fw-light" href="/"><i class="fa fa-pie-chart"></i> <div class="langclass" id="lang_dashboard">Dashboard</div></a>
       </li>
       <li class="nav-link">
-	<a class="nav-link text-body text-decoration-none fw-light" href="/state"><i class="fa fa-cubes"></i> State</a>
+	<a class="nav-link text-body text-decoration-none fw-light" href="/state"><i class="fa fa-cubes"></i> <div class="langclass" id="lang_state">State</div></a>
       </li>
       <li class="nav-link">
-	<a class="nav-link text-body text-decoration-none fw-light" href="/build"><i class="fa fa-cogs"></i> Build</a>
+	<a class="nav-link text-body text-decoration-none fw-light" href="/build"><i class="fa fa-cogs"></i> <div class="langclass" id="lang_build">Build</div></a>
       </li>
       <li class="nav-link">
         <a class="nav-link text-body text-decoration-none fw-light" href="/backup"><i class="fa fa-archive"></i> Snapshot</a>
@@ -16,10 +16,10 @@
         <a class="nav-link text-body text-decoration-none fw-light" href="/iso"><i class="fa-solid fa-compact-disc"></i> ISO</a>
       </li>
       <li class="nav-link">
-        <a class="nav-link text-body text-decoration-none fw-light" href="/pool"><i class="fa-solid fa-hard-drive"></i> Pools</a>
+        <a class="nav-link text-body text-decoration-none fw-light" href="/pool"><i class="fa-solid fa-hard-drive"></i> <div class="langclass" id="lang_pools">Pools</div></a>
       </li>
       <li class="nav-link">
-        <a class="nav-link text-body text-decoration-none fw-light" href="/network"><i class="fa-solid fa-network-wired"></i> Network</a>
+        <a class="nav-link text-body text-decoration-none fw-light" href="/network"><i class="fa-solid fa-network-wired"></i> <div class="langclass" id="lang_network">Network</div></a>
       </li>
 
     </ul>
@@ -32,9 +32,10 @@
           </a>
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
             <li><a class="dropdown-item" href="/logout"><i class="fa fa-sign-out"></i> Logout</a></li>
-            <li><a class="dropdown-item" href="/signup"><i class="fa fa-user-plus"></i> Add user</a></li>
-	    <li><a class="dropdown-item" href="/param"><i class="fa fa-gear"></i> Parameters</a></li>
+            <li><a class="dropdown-item" href="/signup"><i class="fa fa-user-plus"></i> <div class="langclass" id="lang_adduser">Add user</div></a></li>
+	    <li><a class="dropdown-item" href="/param"><i class="fa fa-gear"></i> <div class="langclass" id="lang_param">Parameters</div></a></li>
             <li><a class="dropdown-item" style="cursor:pointer" id="btnSwitch"><i class="fa-solid fa-circle-half-stroke"></i> Theme</a></li>
+            <li><a class="dropdown-item" style="cursor:pointer" id="btnLang"><i class="fa-solid fa-language"></i> <div class="langclass" id="lang_lang">Language</div></a></li>
           </ul>
     </nav>
 </br>

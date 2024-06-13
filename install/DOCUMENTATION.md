@@ -69,11 +69,11 @@ This iso is on ./storage/win/ and configured in **config.py** for upgrade.
 ### Tested Windows Installation (tested with Virtio 0.1.229):
 
 Validate for :
-  - Windows 8, 8,1 10
+  - Windows 8, 8,1 10 11
   - Windows Server 2019, 2022
 
 Failed with :
-  - Windows 98, Windows XP, Windows 11 (UEFI access)
+  - Windows 98, Windows XP
 
 Never Tested :
   - Win 7 and Vista
