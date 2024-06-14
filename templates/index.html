@@ -6,11 +6,11 @@
 <div class="col-4">
 <div class="card">
                 <div class="card-header">
-                Hostname
+                <div class="langclass" id="lang_ihostname">Hostname</div>
                 </div>
                 <div class="card-body">
 		<h1 class="display-6">{{ host.hostname }}</h1>
-                Last boot : {{ host.boot_time }}<br>
+                <div class="langclass" id="lang_ilastboot">Last boot</div> : {{ host.boot_time }}<br>
                 <b>LXC:</b> {{ vlxc }} - <b>Libvirt:</b> {{ vlibvirt }} - <b>Hype:</b> {{ vhype }}
                 </div>
 </div>
@@ -45,7 +45,7 @@
 <div class="col-6">
 	<div class="card">
 		<div class="card-header">
-			Monitor
+			<div class="langclass" id="lang_imonitor">Monitor</div>
 		</div>
 		<div class="card-body">
 			<canvas id="canvas"></canvas>
@@ -55,7 +55,7 @@
 <div class="col-6">
 <div class="card">
 <div class="card-header">
-    Usage
+    <div class="langclass" id="lang_iusage">Usage</div>
 </div>
 <div class="card-body">
 <p class="fw-light">CPU</p>
@@ -91,7 +91,7 @@ total : {{ full['swap']['total'] }} / used : {{ full['swap']['used'] }} / free :
 <div class="col-12">
 <div class="card">
   <div class="card-header">
-    Disks
+    <div class="langclass" id="lang_idisk">Disks</div>
   </div>
   <div class="card-body">
 {% for key in full %}
@@ -116,11 +116,11 @@ total : {{ full[key]['size_total'] }} / used : {{ full[key]['size_used'] }} / fr
 <div class="col-12">
 <div class="card">
   <div class="card-header">
-    Network
+    <div class="langclass" id="lang_inet">Network</div>
   </div>
   <div class="card-body">
 <table class="table fw-light">
-<tr><td>Name</td><td>IPv4</td><td>Netmask v4</td><td>IPv6</td><td>Netmask v6</td><td>Sent</td><td>Received</td></tr>
+<tr><td><div class="langclass" id="lang_iname">Name</div></td><td>IPv4</td><td>Netmask v4</td><td>IPv6</td><td>Netmask v6</td><td><div class="langclass" id="lang_isent">Sent</div></td><td><div class="langclass" id="lang_irec">Received</div></td></tr>
 {% for key in full %}
 {% if key.startswith('net_') %}
 <tr><td>{{ full[key]['name'] }}</td><td>{{ full[key]['address_v4'] }}</td><td>{{ full[key]['netmask_v4'] }}</td><td>{{ full[key]['address_v6'] }}</td><td>{{ full[key]['netmask_v6'] }}</td><td>{{ full[key]['bytes_sent'] }}</td><td>{{ full[key]['bytes_recv'] }}</td><tr>
