@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html data-bs-theme="dark">
+
+<html data-bs-theme="light">
 
 <head>
 <head>
@@ -130,33 +131,34 @@ menu_btn.addEventListener("click", () => {
         }
 // ]]>
 </script>
-<!-- DropZone
-<script>
-var myDropzone = new Dropzone("#file-dropzone", {
-    maxFilesize: 10240, // 10Go in Mo
-    timeout: 0,
-});
-</script>
 -->
 <!-- Alert JS -->
 <script>
 //Get the cookie related to theme
-var cookieValue = document.cookie
+var cookieThemeValue = document.cookie
   .split("; ")
   .find((row) => row.startsWith("theme="))
   ?.split("=")[1];
-// Appli the theme related to the cookie
-window.onload = function() {
-      if (cookieValue == 'dark'){
-         document.documentElement.setAttribute('data-bs-theme','dark')
-      }
-      else {
-         document.documentElement.setAttribute('data-bs-theme','light')
-      }
-}
+//Get the cookie related to lang
+var cookieLangValue = document.cookie
+  .split("; ")
+  .find((row) => row.startsWith("lang="))
+  ?.split("=")[1];
+
+//Btn event
 //Change the cookie and reload
+document.getElementById('btnLang').addEventListener('click',()=>{
+    if (cookieLangValue == 'fr') {
+        document.cookie = "lang=en";
+        window.location.reload();
+    }
+    else {
+        document.cookie = "lang=fr";
+        window.location.reload();
+    }
+})
 document.getElementById('btnSwitch').addEventListener('click',()=>{
-    if (cookieValue == 'dark') {
+    if (cookieThemeValue == 'dark') {
         document.cookie = "theme=light";
         window.location.reload();
     }
@@ -166,14 +168,15 @@ document.getElementById('btnSwitch').addEventListener('click',()=>{
     }
 })
 
-//Get the cookie related to language
-var cookieValue = document.cookie
-  .split("; ")
-  .find((row) => row.startsWith("lang="))
-  ?.split("=")[1];
-// Appli the lang related to the cookie
+
 window.onload = function() {
-      if (cookieValue == 'fr'){
+      if (cookieThemeValue == 'dark'){
+         document.documentElement.setAttribute('data-bs-theme','dark')
+      }
+      else {
+         document.documentElement.setAttribute('data-bs-theme','light')
+      }
+      if (cookieLangValue == 'fr'){
          document.getElementById("lang_state").innerHTML = "Etat"
          document.getElementById("lang_dashboard").innerHTML = "Tableau de bord"
          document.getElementById("lang_build").innerHTML = "Créer"
@@ -259,18 +262,6 @@ window.onload = function() {
          document.getElementById("lang_diskin").innerHTML = "Disk (in GB)"}
       }
 }
-//Change the cookie and reload
-document.getElementById('btnLang').addEventListener('click',()=>{
-    if (cookieValue == 'fr') {
-        document.cookie = "lang=en";
-        window.location.reload();
-    }
-    else {
-        document.cookie = "lang=fr";
-        window.location.reload();
-    }
-})
-
 
 </script>
 </body>
