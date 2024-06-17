@@ -4,14 +4,14 @@
 <div class="container">
        <div class="card">
                 <div class="card-header">
-		Ressources of {{ lxc_name }}
+		<div class="langclass" id="lang_eltitre">Ressources of</div> {{ lxc_name }}
                 </div>
         	<div class="card-body">
 			<div class="row">
     				<div class="col-sm">
       					<i class="fa-solid fa-microchip"></i> vCPU : {{ max_vCPU }}</br></br>
-					<i class="fa-solid fa-memory"></i> Memory: {{ actual_ram }}</br></br>
-					<i class="fa-solid fa-memory"></i> Max Memory: {{ max_Mermory }}</br></br>
+					<i class="fa-solid fa-memory"></i> <div class="langclass" id="lang_elmemory">Memory</div>: {{ actual_ram }}</br></br>
+					<i class="fa-solid fa-memory"></i> <div class="langclass" id="lang_elmmemory">Max Memory</div>: {{ max_Mermory }}</br></br>
 					<i class="fa-solid fa-memory"></i> Swap: {{ max_swap }}</br></br>
     				</div>
 
@@ -19,8 +19,8 @@
 				<form action="/editressourceslxc" method="post">
                                         <input type="hidden" name="lxc_name" value="{{ lxc_name }}"></input>
       					<table><tr><td>CPU :</td><td><input type="text" name="new_cpu" class="form-control form-control-sm" placeholder="{{ max_vCPU }}" value="{{ max_vCPU }}" ></input></td></tr></table><br>
-      					<table><tr><td>Memory :</td><td><input type="text" name="new_mem" class="form-control form-control-sm" placeholder="{{ actual_ram }}" value="{{ actual_ram }}" ></input></td></tr></table><br>
-      					<table><tr><td>Max Memory :</td><td><input type="text" name="new_max_mem" class="form-control form-control-sm" placeholder="{{ max_Mermory }}" value="{{ max_Mermory }}" ></input></td></tr></table><br>
+      					<table><tr><td><div class="langclass" id="lang_elmemory2">Memory</div> :</td><td><input type="text" name="new_mem" class="form-control form-control-sm" placeholder="{{ actual_ram }}" value="{{ actual_ram }}" ></input></td></tr></table><br>
+      					<table><tr><td><div class="langclass" id="lang_elmmemory2">Max Memory</div> :</td><td><input type="text" name="new_max_mem" class="form-control form-control-sm" placeholder="{{ max_Mermory }}" value="{{ max_Mermory }}" ></input></td></tr></table><br>
       					<table><tr><td>Swap :</td><td><input type="text" name="new_max_swap" class="form-control form-control-sm" placeholder="{{ max_swap }}" value="{{ max_swap }}" ></input></td></tr></table><br>				
 					<br><br>
 					<button type="submit" class="btn btn-outline-warning btn-hype" onclick="loading();"><i class="fa-solid fa-pencil"></i></button>
