@@ -102,7 +102,7 @@ total : {{ full['swap']['total'] }} / used : {{ full['swap']['used'] }} / free :
   <div class="progress-bar bg-info" role="progressbar" style="width: {{ full[key]['size_percent'] }}%;" aria-valuenow={{ full[key]['size_percent'] }} aria-valuemin="0" aria-valuemax="100">{{ full[key]['size_percent'] }}%</div>
 </div>
 <small class="form-text text-muted">
-total : {{ full[key]['size_total'] }} / used : {{ full[key]['size_used'] }} / free : {{ full[key]['size_free'] }} / device : {{ full[key]['device'] }} / fstype : {{ full[key]['fstype'] }} / opt: {{ full[key]['opts'] }} / maxfile : {{ full[key]['maxfile'] }} / maxpath : {{ full[key]['maxpath'] }}
+total : {{ full[key]['size_total'] }} / used : {{ full[key]['size_used'] }} / free : {{ full[key]['size_free'] }} / device : {{ full[key]['device'] }} / fstype : {{ full[key]['fstype'] }} / opt: {{ full[key]['opts'] }} 
 </small>
 </br>
 {% endif %}

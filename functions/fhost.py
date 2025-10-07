@@ -96,8 +96,6 @@ class Disks:
             exec("self.disk_"+str(num)+"['mountpoint'] = '"+str(i.mountpoint)+"'")
             exec("self.disk_"+str(num)+"['fstype'] = '"+str(i.fstype)+"'")
             exec("self.disk_"+str(num)+"['opts'] = '"+str(i.opts)+"'")
-            exec("self.disk_"+str(num)+"['maxfile'] = '"+str(i.maxfile)+"'")
-            exec("self.disk_"+str(num)+"['maxpath'] = '"+str(i.maxpath)+"'")
             exec("self.disk_"+str(num)+"['size_total'] = '"+str(human_size(psutil.disk_usage(i.mountpoint).total))+"'")
             exec("self.disk_"+str(num)+"['size_used'] = '"+str(human_size(psutil.disk_usage(i.mountpoint).used))+"'")
             exec("self.disk_"+str(num)+"['size_free'] = '"+str(human_size(psutil.disk_usage(i.mountpoint).free))+"'")
